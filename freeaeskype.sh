@@ -80,16 +80,6 @@ fi
 
 gpg2 --decrypt --output - $key >> in &
 
-sleep 4
-
-ret=$?;
-
-if( [[ $ret > 0 ]] ) then
-{
-    echo "gpg2 returned $ret"
-    exit 1
-}
-fi
 
 if [[ $volume ]]; then
 {
@@ -110,16 +100,6 @@ else
 fi
 
 gpg2 --decrypt --output - $key >> in &
-
-sleep 4
-ret=$?;
-
-if( [[ $ret > 0 ]] ) then
-{
-    echo "gpg2 returned $ret"
-    exit 1
-}
-fi
 
 
 if [[ $fromport ]];  then
