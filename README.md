@@ -19,3 +19,6 @@ that has 65 20+ character long strings in it.
 
 Remember, the volume is raised on the sending side. So if your partner is sending
 to low a level for your liking your partner will have to raise it herself.
+
+PS: You will be asked for your secret key pass pharse twice. This is perfectly normal.
+
