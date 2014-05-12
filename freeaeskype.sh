@@ -87,7 +87,7 @@ if [[ $volume ]]; then
     -s:v 640x480 -i /dev/video0 -ac 2 -f alsa -i hw:0 -ac 2 -c:a libvorbis \
     -s:v 640x480 -b:v 100KiB -c:v libvpx -f nut -b:a 9000B \
     -filter_complex volume=$volume - | aespipe -e AES256 -H SHA512 \
-    -P in | nc -w 60 -n $ip $toport &
+    -P in | nc -w 60 -n $ip $toport > server.log &
 }
 else
 {
@@ -95,7 +95,7 @@ else
     -s:v 640x480 -i /dev/video0 -ac 2 -f alsa -i hw:0 -ac 2 -c:a libvorbis \
     -s:v 640x480 -b:v 100KiB -c:v libvpx -f nut -b:a 9000B \
     - | aespipe -e AES256 -H SHA512 \
-    -P in | nc -w 60 -n $ip $toport &
+    -P in | nc -w 60 -n $ip $toport > server.log &
 }
 fi
 
