@@ -15,7 +15,8 @@ As I said I've not fully tested it and so you might consider playing with the
 audio and or video codecs and bit rates.
 
 You should create a secret gpg key. Then you should create a file encrypted to yourself
-that has 65 20+ character long strings in it.
+and your friend that has 65 20+ character long strings in it. Send the file to your friend,
+it matters not how you do it.
 
 Remember, the volume is raised on the sending side. So if your partner is sending
 to low a level for your liking your partner will have to raise it herself.
