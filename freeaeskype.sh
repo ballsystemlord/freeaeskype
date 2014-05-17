@@ -1,4 +1,10 @@
 #!/bin/bash
+cleanup()
+{
+    rm in;
+    killall -s SIGINT ffmpeg;
+    killall -s SIGINT ffplay;
+}
 
 usage()
 {
@@ -26,6 +32,7 @@ while [[ -n $1 ]]; do
         -v | --volume)      shift
             volume=$1
             ;;
+        -V | --version)     echo "freeaskype: version is 0.0.5 alpha"
             *)              ip=$1
                 ;;
     esac
@@ -80,6 +87,16 @@ fi
 
 gpg2 --decrypt --output - $key >> in &
 
+sleep 4
+
+ret=$?;
+
+if( [[ $ret > 0 ]] ) then
+{
+    echo "gpg2 returned $ret"
+    exit 1
+}
+fi
 
 if [[ $volume ]]; then
 {
@@ -87,7 +104,7 @@ if [[ $volume ]]; then
     -s:v 640x480 -i /dev/video0 -ac 2 -f alsa -i hw:0 -ac 2 -c:a libvorbis \
     -s:v 640x480 -b:v 100KiB -c:v libvpx -f nut -b:a 9000B \
     -filter_complex volume=$volume - | aespipe -e AES256 -H SHA512 \
-    -P in | nc -w 60 -n $ip $toport > server.log &
+    -P in | nc -w 60 -n $ip $toport > freeaskype.log &
 }
 else
 {
@@ -95,11 +112,21 @@ else
     -s:v 640x480 -i /dev/video0 -ac 2 -f alsa -i hw:0 -ac 2 -c:a libvorbis \
     -s:v 640x480 -b:v 100KiB -c:v libvpx -f nut -b:a 9000B \
     - | aespipe -e AES256 -H SHA512 \
-    -P in | nc -w 60 -n $ip $toport > server.log &
+    -P in | nc -w 60 -n $ip $toport > freeaskype.log &
 }
 fi
 
 gpg2 --decrypt --output - $key >> in &
+
+sleep 4
+ret=$?;
+
+if( [[ $ret > 0 ]] ) then
+{
+    echo "gpg2 returned $ret"
+    exit 1
+}
+fi
 
 
 if [[ $fromport ]];  then
@@ -116,7 +143,8 @@ else
 }
 fi
 
+trap cleanup SIGINT
+
 
 exit 0
-
 
