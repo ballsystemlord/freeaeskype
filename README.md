@@ -23,3 +23,10 @@ to low a level for your liking your partner will have to raise it herself.
 
 PS: You will be asked for your secret key pass pharse twice. This is perfectly normal.
 
+It depends on:
+
+ffmpeg
+gpg
+aespipe
+bash(or simmilar)
+netcat
